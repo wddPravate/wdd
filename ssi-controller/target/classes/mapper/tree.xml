@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"   
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- sqlMap：映射标签
+	namespace：命名空间
+ -->
+<sqlMap namespace="tree">
+
+	<!-- 为类起别名，使用的时候比较方便 -->
+	<typeAlias alias="tree" type="com.jk.entity.user.Tree"/>
+	
+	
+	
+	<!-- 查询用户列表 -->
+	<select id="queryTree" resultClass="tree">
+		select t_id as id, 
+			t_pid as pid,
+			t_name as name
+			
+		from t_tree
+	</select>
+	
+	
+	
+</sqlMap>

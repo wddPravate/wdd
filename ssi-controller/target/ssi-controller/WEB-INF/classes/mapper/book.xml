@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"   
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- sqlMap：映射标签
+	namespace：命名空间
+ -->
+<sqlMap namespace="book">
+
+	<!-- 为类起别名，使用的时候比较方便 -->
+	<typeAlias alias="book" type="com.jk.entity.book.Book"/>
+
+	<!-- 添加书籍 -->
+	<insert id="insertBook" parameterClass="book">
+		insert into t_books
+		(t_id,t_name,t_price,book_Img,book_MD5)
+		values
+		(t_book_s.nextval,#bookName#,#bookPrice#,#bookImg#,#bookMD5#)
+	</insert>
+	
+	<!-- 查询书籍列表 -->
+	<select id="selectBookList" resultClass="book">
+		select t_id as bookId, 
+			t_name as bookName,
+			t_price as bookPrice,
+			book_Img as bookImg
+		from t_books
+	</select>
+	
+	<!-- 查询书籍列表根据md5 -->
+	<select id="selectBookByMD5" resultClass="book"  parameterClass="book">
+		select t_id as bookId, 
+			t_name as bookName,
+			t_price as bookPrice,
+			book_Img as bookImg,
+			book_MD5 as bookMD5
+		from t_books where book_MD5 = #bookMD5#
+	</select>
+	<!-- 删除书籍 -->
+	<delete id="deleteBook" parameterClass="int">
+		delete from t_books where
+		t_id=#bookId#
+	</delete>
+	
+	<!-- 单条查询书籍列表 -->
+	<select id="queryByBookID" resultClass="book">
+		select t_id as bookId, 
+			t_name as bookName,
+			t_price as bookPrice,
+			book_Img as bookImg	
+		from t_books where t_id=#bookId#
+	</select>
+	
+	<!-- 修改书籍 -->
+	<update id="updateBook" parameterClass="book">
+		update t_books set
+		t_name=#bookName#,t_price=#bookPrice#,book_Img=#bookImg#
+		where t_id=#bookId#
+	</update>
+</sqlMap>
